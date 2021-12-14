@@ -115,6 +115,42 @@ jobs:
       - store_test_results:
           path: test-reports
 
+  unittest_win_cpu:
+    <<: *binary_common
+    machine:
+      resource_class: windows.xlarge
+      image: windows-server-2019-vs2019:stable
+      shell: bash.exe
+    steps:
+      - checkout
+      - run:
+          name: Setup
+          command: |
+            pip install pytest pytest-cov codecov
+            pip install torch torchvision -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html --pre
+            python -c "import torch; print(torch.__version__)")"
+      - run:
+          name: Install functorch
+          command: |
+            python setup.py develop bdist_wheel
+      - persist_to_workspace:
+          root: wheels
+          paths:
+            - "*"
+      - store_artifacts:
+          path: wheels
+      - run:
+          name: Run tests
+          command: |
+            mkdir test-reports
+            python -m torch.utils.collect_env
+            pytest -vvv test
+      - run:
+          name: Post process
+          command: codecov
+      - store_test_results:
+          path: test-reports
+
 workflows:
   unittest:
     jobs:
@@ -130,3 +166,9 @@ workflows:
             parameters:
               python_version: ["3.6", "3.7", "3.8"]
               cu_version: ["cu102"]
+      - unittest_win_cpu:
+          name: unittest_win_cpu
+          matrix:
+            parameters:
+              python_version: ["3.8"]
+              cu_version: ["cpu"]
