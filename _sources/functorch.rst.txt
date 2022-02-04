@@ -9,11 +9,14 @@ Function Transforms
     :toctree: generated
     :nosignatures:
 
+    vmap
     grad
     grad_and_value
-    jacrev
-    vmap
     vjp
+    jvp
+    jacrev
+    jacfwd
+    hessian
 
 Utilities for working with torch.nn.Modules
 -------------------------------------------
