@@ -3,6 +3,8 @@
 functorch
 ===================================
 
+- Test update 1
+
 .. currentmodule:: functorch
 
 functorch is `JAX-like <https://github.com/google/jax>`_ composable function transforms for PyTorch.
@@ -63,3 +65,4 @@ For a whirlwind tour of how to use the transforms, please check out `this sectio
    notebooks/per_sample_grads.ipynb
    notebooks/neural_tangent_kernels.ipynb
    notebooks/aot_autograd_optimizations.ipynb
+   notebooks/minifier.ipynb
