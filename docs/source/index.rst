@@ -4,6 +4,7 @@ functorch
 ===================================
 
 - Test update 1
+- Test update 3
 
 .. currentmodule:: functorch
 
